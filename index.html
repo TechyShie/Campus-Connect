@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Connect Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class = "dashboard-container"></div>
+    
+    <!--Side bar-->
+    <aside class="sidebar">
+        <h2>Campus Connect</h2>
+        <nav>
+            <ul>
+                <li class="active">Dashboard</li>
+                 <li>Events</li>
+                  <li>Clubs</li>
+                   <li>Resources</li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!--Main Content-->
+    <main class="main-content">
+        <header class="main-header">
+            <h1>Dashbord</h1>
+             <img src="https://i.pravatar.cc/40" alt="User profile" class="profile-pic"/>
+        </header>
+
+        <section class="event-selection">
+            <h2>Upcoming Events</h2>
+            <div id="event-list">
+                <!--Events cards will go here-->
+            </div>
+            <button class="calender-btn">Add to Calender</button>
+        </section>
+
+        <section class="clubs-section">
+            <h2>Join a Club</h2>
+            <div id="clubs-list">
+                <!--Club cards will go here-->
+            </div>
+        </section>
+
+        <section class="resources-section">
+            <h2>Academic Resources</h2>
+            <ul>
+                <li>Lecture Notes</li>
+                <li>Past Exams</li>
+                <li>Study Guides</li>
+                <li>Timetable</li>
+            </ul>
+        </section>
+
+        <section class="notice-section">
+            <h2>Notice Board</h2>
+            <div id="nptice-list">
+                <!--Notice cards go here-->
+            </div>
+        </section>
+    </main>
+   
+    <script src="index.js"></script>
+</body>
+</html>
