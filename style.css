@@ -1,20 +1,31 @@
+/* General Reset & Body Gradient */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   display: flex;
-  background: #f5f7fa;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #f8d1c9 0%,
+    #f4c4b5 20%,
+    #eec2cf 40%,
+    #d7c4e6 60%,
+    #c7b6e5 80%,
+    #b0c0e0 100%
+  );
+  background-attachment: fixed;
+  background-size: cover;
+  color: #333;
 }
 
-body.dark-mode {
-  background: #181a1b;
-  color: #e0e0e0;
-}
-
-/* Sidebar styles */
+/* Sidebar Frosted Glass */
 .sidebar {
   width: 220px;
-  background-color: #2c3e50;
-  color: #ecf0f1;
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
   min-height: 100vh;
   padding: 20px;
 }
@@ -44,15 +55,10 @@ body.dark-mode {
 
 .sidebar nav li.active,
 .sidebar nav li:hover {
-  background-color: #34495e;
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
-body.dark-mode .sidebar nav li.active {
-  background: #222;
-  color: #fff;
-}
-
-/* Main content styles */
+/* Main Content */
 .main-content {
   flex-grow: 1;
   padding: 20px;
@@ -61,7 +67,7 @@ body.dark-mode .sidebar nav li.active {
 .main-header h1 {
   margin: 0;
   font-size: 1.8rem;
-  color: #34495e;
+  color: #444;
 }
 
 /* Sections */
@@ -73,7 +79,7 @@ body.dark-mode .sidebar nav li.active {
   display: block;
 }
 
-/* Dashboard styles */
+/* Dashboard Stats */
 .dashboard-stats {
   display: flex;
   gap: 1rem;
@@ -81,9 +87,10 @@ body.dark-mode .sidebar nav li.active {
 }
 
 .dashboard-stats div {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.6);
   padding: 1rem;
   border-radius: 8px;
+  backdrop-filter: blur(8px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   flex: 1;
   text-align: center;
@@ -97,6 +104,7 @@ body.dark-mode .sidebar nav li.active {
   margin-top: 0.25rem;
 }
 
+/* Event List */
 #dashboard-next-events-list {
   margin-top: 1rem;
   list-style: none;
@@ -104,25 +112,20 @@ body.dark-mode .sidebar nav li.active {
 }
 
 #dashboard-next-events-list li {
-  background: #ecf0f1;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
   padding: 0.75rem 1rem;
   margin-bottom: 0.5rem;
   border-radius: 6px;
 }
 
-/* Event and club cards */
+/* Event & Club Cards */
 .event-card,
-.club-card {
-  background: #fff;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.event-card {
-  background: #ffffff;
-  border: 1px solid #ddd;
+.club-card,
+.resource-card,
+.news-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 8px;
@@ -130,56 +133,102 @@ body.dark-mode .sidebar nav li.active {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.event-card:hover {
+.event-card:hover,
+.club-card:hover,
+.resource-card:hover,
+.news-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .event-card strong,
-.club-card strong {
+.club-card strong,
+.news-card strong {
   display: block;
-  font-size: 1.1rem;
-  margin-bottom: 0.25rem;
-}
-
-.event-card strong {
   font-size: 1.2rem;
-  color: #1976d2;
+  margin-bottom: 0.25rem;
+  color: #444;
 }
 
+/* Event Date */
 .event-date {
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 .event-card .event-date {
   display: inline-block;
   margin-top: 0.5rem;
   padding: 0.25rem 0.5rem;
-  background: #e3f2fd;
-  color: #1976d2;
+  background: rgba(255, 255, 255, 0.4);
   border-radius: 4px;
   font-weight: bold;
   font-size: 0.95rem;
 }
 
-.event-card .event-description {
-  margin-top: 0.5rem;
+/* To-Do List */
+#tasks {
+  counter-reset: task-counter;
+  list-style: none;
+  padding: 0;
+}
+
+#tasks li {
+  counter-increment: task-counter;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+}
+
+#tasks li::before {
+  content: counter(task-counter) ". ";
+  font-weight: bold;
+  margin-right: 6px;
   color: #555;
 }
 
-/* Modal styles */
+#tasks span {
+  flex: 1;
+}
+
+#tasks button {
+  margin-left: 6px;
+  padding: 4px 8px;
+  border: none;
+  background: #555;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#tasks button:hover {
+  background: #333;
+}
+
+#tasks li.done span {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* Modal */
 .modal {
   display: none;
   position: fixed;
   z-index: 1000;
-  left: 0; top: 0; width: 100%; height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   overflow: auto;
   background: rgba(0,0,0,0.4);
 }
 
 .modal-content {
-  background: #fff;
+  background: rgba(255,255,255,0.95);
   margin: 10% auto;
   padding: 20px;
   border-radius: 8px;
@@ -195,92 +244,7 @@ body.dark-mode .sidebar nav li.active {
   font-size: 20px;
 }
 
-/* To-Do List */
-#tasks {
-  counter-reset: task-counter;
-  list-style: none;
-  padding: 0;
-}
-
-#tasks li {
-  counter-increment: task-counter;
-  background: #fff;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-#tasks li::before {
-  content: counter(task-counter) ". ";
-  font-weight: bold;
-  margin-right: 6px;
-  color: #2980b9;
-}
-
-#tasks span {
-  flex: 1;
-}
-
-#tasks button {
-  margin-left: 6px;
-  padding: 4px 8px;
-  border: none;
-  background: #2980b9;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-#tasks button:hover {
-  background: #1c5980;
-}
-
-#tasks li.done span {
-  text-decoration: line-through;
-  color: #888;
-}
-
-/* Calendar container */
-#calendar-container {
-  background: #fff;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-body.dark-mode .main-content,
-body.dark-mode .sidebar,
-body.dark-mode .event-card,
-body.dark-mode .club-card,
-body.dark-mode .resource-card,
-body.dark-mode #calendar-container {
-  background: #23272a;
-  color: #e0e0e0;
-  border-color: #333;
-}
-
-body.dark-mode .event-card,
-body.dark-mode .club-card,
-body.dark-mode .resource-card {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
-
-body.dark-mode .add-to-calendar-btn,
-body.dark-mode .join-club-btn,
-body.dark-mode .resource-card button {
-  background: #333 !important;
-  color: #fff !important;
-}
-
-body.dark-mode .modal-content {
-  background: #23272a;
-  color: #e0e0e0;
-}
-
-/* Resources section styles */
+/* Resources */
 .resource-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -288,21 +252,8 @@ body.dark-mode .modal-content {
   margin-top: 1rem;
 }
 
-.resource-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 1rem;
-  border-radius: 6px;
-  text-align: center;
-  transition: box-shadow 0.2s;
-}
-
-.resource-card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
 .resource-card button {
-  background-color: #2980b9;
+  background-color: #555;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -312,7 +263,7 @@ body.dark-mode .modal-content {
 }
 
 .resource-card button:hover {
-  background-color: #1c5980;
+  background-color: #333;
 }
 
 /* Club logos */
@@ -324,91 +275,30 @@ body.dark-mode .modal-content {
   margin-right: 8px;
 }
 
-/* Add to Calendar button */
-.add-to-calendar-btn {
-  margin-top: 0.7rem;
-  background: #1976d2;
-  color: #fff;
-  border: none;
-  padding: 0.4rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.add-to-calendar-btn:hover {
-  background: #125299;
-}
-
+/* Buttons */
+.add-to-calendar-btn,
 .join-club-btn {
   margin-top: 0.7rem;
-  background: #43a047;
+  background: #555;
   color: #fff;
   border: none;
   padding: 0.4rem 1rem;
   border-radius: 4px;
   cursor: pointer;
   transition: background 0.2s;
+}
+
+.add-to-calendar-btn:hover,
+.join-club-btn:hover:not([disabled]) {
+  background: #333;
 }
 
 .join-club-btn[disabled] {
-  background: #bdbdbd;
+  background: #aaa;
   cursor: not-allowed;
 }
 
-.join-club-btn:hover:not([disabled]) {
-  background: #2e7031;
-}
-
-/* News cards */
-.news-card {
-  background: #fff;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.news-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.news-card strong {
-  display: block;
-  font-size: 1.2rem;
-  margin-bottom: 0.25rem;
-  color: #1976d2;
-}
-
-.news-date {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 0.5rem;
-}
-
-.news-content {
-  color: #333;
-}
-
-body.dark-mode .news-card {
-  background: #23272a;
-  color: #e0e0e0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
-
 /* Responsive adjustments */
-@media (max-width: 1024px) {
-  .dashboard-stats {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .resource-cards {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  }
-}
-
 @media (max-width: 768px) {
   body {
     flex-direction: column;
@@ -439,29 +329,5 @@ body.dark-mode .news-card {
   .modal-content {
     width: 95vw;
     max-width: 350px;
-    margin: 30% auto;
-    padding: 16px;
-  }
-  .club-card img {
-    width: 36px;
-    height: 36px;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-header h1 {
-    font-size: 1.2rem;
-  }
-  .dashboard-header h2 {
-    font-size: 1rem;
-  }
-  .resource-cards {
-    grid-template-columns: 1fr;
-  }
-  .modal-content {
-    width: 98vw;
-    max-width: 98vw;
-    margin: 40% auto;
-    padding: 10px;
   }
 }
