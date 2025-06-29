@@ -4,66 +4,137 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Campus Connect Dashboard</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
   <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet"/>
 </head>
 <body>
-  <div class="dashboard-container">
+  <aside class="sidebar">
+    <h2>Campus Connect</h2>
+    <nav>
+      <ul>
+        <li data-section="dashboard" class="active"><i class="fas fa-home"></i> <span>Dashboard</span></li>
+        <li data-section="calendar"><i class="fas fa-calendar-alt"></i> <span>Calendar</span></li>
+        <li data-section="events"><i class="fas fa-ticket-alt"></i> <span>Events</span></li>
+        <li data-section="clubs"><i class="fas fa-users"></i> <span>Clubs</span></li>
+        <li data-section="resources"><i class="fas fa-book"></i> <span>Resources</span></li>
+        <li data-section="todo"><i class="fas fa-check-square"></i> <span>To-Do List</span></li>
+        <li data-section="news"><i class="fas fa-newspaper"></i> <span>News</span></li>
+      </ul>
+    </nav>
+  </aside>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <h2>Campus Connect</h2>
-      <nav>
-        <ul>
-          <li class="active">Dashboard</li>
-          <li>Events</li>
-          <li>Clubs</li>
-          <li>Resources</li>
-        </ul>
-      </nav>
-    </aside>
+  <main class="main-content">
+    <header class="main-header">
+      <h1 id="section-title">Dashboard</h1>
+    </header>
 
-    <!-- MAIN CONTENT -->
-    <main class="main-content">
-      <header class="main-header">
-        <h1>Dashboard</h1>
-        <img src="https://i.pravatar.cc/40" alt="User profile" class="profile-pic"/>
-      </header>
-
-      <section class="events-section">
-        <h2>Upcoming Events</h2>
-        <div id="events-list">
-          <!-- Event cards will go here -->
+    <section id="dashboard" class="content-section active">
+      <div class="dashboard-header">
+        <h2>Welcome Back!</h2>
+        <p class="dashboard-quote">"Stay organized and make today count!"</p>
+      </div>
+      <div class="dashboard-stats">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+          <div>Events</div>
+          <div id="stat-events">0</div>
         </div>
-        <button class="calendar-btn">Add to Calendar</button>
-      </section>
-
-      <section class="clubs-section">
-        <h2>Join a Club</h2>
-        <div id="clubs-list">
-          <!-- Club cards will go here -->
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-users"></i></div>
+          <div>Clubs Joined</div>
+          <div id="stat-clubs">0</div>
         </div>
-      </section>
-
-      <section class="resources-section">
-        <h2>Academic Resources</h2>
-        <ul>
-          <li>Lecture Notes</li>
-          <li>Past Exams</li>
-          <li>Study Guides</li>
-          <li>Timetable</li>
-        </ul>
-      </section>
-
-      <section class="notice-section">
-        <h2>Notice Board</h2>
-        <div id="notices-list">
-          <!-- Notice cards will go here -->
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-check-square"></i></div>
+          <div>Tasks</div>
+          <div id="stat-tasks">0/0</div>
         </div>
-      </section>
-    </main>
-    
+      </div>
+      <div class="dashboard-next-events">
+        <h3>Next Events</h3>
+        <ul id="dashboard-next-events-list"></ul>
+      </div>
+      <div class="dashboard-actions">
+        <button data-section="events"><i class="fas fa-calendar-plus"></i> View Events</button>
+        <button data-section="clubs"><i class="fas fa-users"></i> Join Clubs</button>
+        <button data-section="todo"><i class="fas fa-tasks"></i> To-Do List</button>
+      </div>
+    </section>
+
+    <section id="calendar" class="content-section">
+      <div id="calendar-container"></div>
+    </section>
+
+    <section id="events" class="content-section">
+      <h2>Upcoming Events</h2>
+      <div id="events-list"></div>
+    </section>
+
+    <section id="clubs" class="content-section">
+      <h2>Join a Club</h2>
+      <div id="clubs-list"></div>
+    </section>
+
+    <section id="resources" class="content-section">
+      <h2>Resources</h2>
+      <div class="resource-cards">
+        <div class="resource-card" data-category="Notes & Guides"><h3>Notes & Guides</h3><button>View</button></div>
+        <div class="resource-card" data-category="Tutorials & Videos"><h3>Tutorials & Videos</h3><button>View</button></div>
+        <div class="resource-card" data-category="Helpful Links"><h3>Helpful Links</h3><button>View</button></div>
+        <div class="resource-card" data-category="Skill Modules"><h3>Skill Modules</h3><button>View</button></div>
+      </div>
+    </section>
+
+    <section id="todo" class="content-section">
+      <h2>To-Do List</h2>
+      <input id="new-task" placeholder="New task..." />
+      <button id="add-task">Add</button>
+      <ul id="tasks"></ul>
+    </section>
+
+    <section id="news" class="content-section">
+      <h2>Latest News</h2>
+      <div id="news-list"></div>
+    </section>
+  </main>
+
+  <div id="resource-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h3 id="modal-title"></h3>
+      <ul id="resource-list"></ul>
+    </div>
   </div>
 
+  <div id="add-event-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" id="close-event-modal">&times;</span>
+      <h3>Add Event</h3>
+      <form id="add-event-form">
+        <label for="event-title">Title:</label>
+        <input type="text" id="event-title" name="event-title" required />
+        <label for="event-details">Details:</label>
+        <textarea id="event-details" name="event-details" rows="3"></textarea>
+        <input type="hidden" id="event-date" name="event-date" />
+        <button type="submit">Add Event</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="view-event-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" id="close-view-event-modal">&times;</span>
+      <h3 id="view-event-title"></h3>
+      <p id="view-event-date"></p>
+      <p id="view-event-details"></p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
   <script src="index.js"></script>
 </body>
 </html>

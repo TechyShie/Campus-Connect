@@ -1,0 +1,18 @@
+{
+  "Notes & Guides": [
+    { "name": "Calculus Study Guide", "link": "#" },
+    { "name": "Essay Writing Tips", "link": "#" }
+  ],
+  "Tutorials & Videos": [
+    { "name": "Physics Video Series", "link": "#" },
+    { "name": "Excel Crash Course", "link": "#" }
+  ],
+  "Helpful Links": [
+    { "name": "Library Portal", "link": "#" },
+    { "name": "Student Services", "link": "#" }
+  ],
+  "Skill Modules": [
+    { "name": "Time Management", "link": "#" },
+    { "name": "Public Speaking", "link": "#" }
+  ]
+}

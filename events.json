@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Orientation Day",
+    "description": "Welcome session for new students.",
+    "date": "2025-07-10"
+  },
+  {
+    "title": "Coding Workshop",
+    "description": "Learn the basics of web development.",
+    "date": "2025-07-15"
+  },
+  {
+    "title": "Sports Festival",
+    "description": "Inter-college sports competitions.",
+    "date": "2025-07-20"
+  },
+  {
+    "title": "Art Exhibition",
+    "description": "Showcase of student artwork.",
+    "date": "2025-07-25"
+  }
+]

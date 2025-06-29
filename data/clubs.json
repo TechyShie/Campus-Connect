@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Art Club",
+    "description": "A club for students who love painting and drawing.",
+    "logo": "https://img.icons8.com/color/96/000000/paint-palette.png"
+  },
+  {
+    "name": "Music Club",
+    "description": "A club for music lovers.",
+    "logo": "https://img.icons8.com/color/96/000000/musical-notes.png"
+  },
+  {
+    "name": "Robotics Club",
+    "description": "Explore the world of robotics.",
+    "logo": "https://img.icons8.com/color/96/000000/robot-2.png"
+  }
+]

@@ -1,188 +1,467 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body{
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    display: flex;
-    height: 100vh;
-}
-
-.dashboard-container{
-    display: flex;
-    width: 100%;
-}
-
-.sidebar{
-    width: 220px;
-    background-color: #f1f3f5;
-    padding: 2rem 1rem;
-    border-right: 1px solid #ddd;
-}
-
-.sidebar h2{
-    font-size: 1.3rem;
-    margin-bottom: 2rem;
-    color: #222;
-}
-
-.sidebar ul{
-    list-style: none;
-}
-
-.sidebar ul li{
-    padding: 0.8rem 1rem;
-    margin-bottom: 1rem;
-    border-radius:8px ;
-    cursor: pointer;
-    color: #555;
-}
-
-.sidebar ul li:hover,
-.sidebar ul li:hover{
-    background-color: #dce1e6;
-    color: #000;
-    font-weight: 600;
-}
-
-.main-content{
-    flex: 1;
-    padding: 2rem;
-    overflow-y: auto;
-}
-
-/* Header */
-.main-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.profile-pic{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
-
-/* Section Tiles */
-section h2{
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-    color: #222;
-}
-
-/* Events Section*/
-.events-section #events-list{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-.event-card{
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.event-date{
-    background-color: #fa7257;
-    color: #fff;
-    border-radius: 6px;
-    padding: 0.5rem;
-    text-align: center;
-    width: 50px;
-    font-weight: bold;
-    margin-right: 1rem;
-}
-
-.event-info h3 {
-    font-size: 1rem;
-    margin-bottom: 0.2rem;
-}
-
-.event-info p {
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.calender-btn {
-    padding: 0.5rem 1rem;
-    background-color: #fcefd9;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-}
-
-#clubs-list {
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  background: #f5f7fa;
 }
 
-.club-card {
+body.dark-mode {
+  background: #181a1b;
+  color: #e0e0e0;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 220px;
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar nav li {
+  padding: 12px;
+  cursor: pointer;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.sidebar nav li i {
+  margin-right: 8px;
+}
+
+.sidebar nav li.active,
+.sidebar nav li:hover {
+  background-color: #34495e;
+}
+
+body.dark-mode .sidebar nav li.active {
+  background: #222;
+  color: #fff;
+}
+
+/* Main content styles */
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.main-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #34495e;
+}
+
+/* Sections */
+.content-section {
+  display: none;
+}
+
+.content-section.active {
+  display: block;
+}
+
+/* Dashboard styles */
+.dashboard-stats {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.dashboard-stats div {
+  background: #fff;
   padding: 1rem;
-  border-radius: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  flex: 1;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.dashboard-stats div span {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-top: 0.25rem;
+}
+
+#dashboard-next-events-list {
+  margin-top: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+#dashboard-next-events-list li {
+  background: #ecf0f1;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+}
+
+/* Event and club cards */
+.event-card,
+.club-card {
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.event-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.event-card strong,
+.club-card strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.event-card strong {
+  font-size: 1.2rem;
+  color: #1976d2;
+}
+
+.event-date {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.event-card .event-date {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.event-card .event-description {
+  margin-top: 0.5rem;
+  color: #555;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0; width: 100%; height: 100%;
+  overflow: auto;
+  background: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* To-Do List */
+#tasks {
+  counter-reset: task-counter;
+  list-style: none;
+  padding: 0;
+}
+
+#tasks li {
+  counter-increment: task-counter;
+  background: #fff;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.club-info h4 {
-  font-size: 1rem;
-  margin-bottom: 0.2rem;
+#tasks li::before {
+  content: counter(task-counter) ". ";
+  font-weight: bold;
+  margin-right: 6px;
+  color: #2980b9;
 }
 
-.join-btn {
-  padding: 0.5rem 1rem;
-  background-color: #f8e9d6;
+#tasks span {
+  flex: 1;
+}
+
+#tasks button {
+  margin-left: 6px;
+  padding: 4px 8px;
   border: none;
-  border-radius: 6px;
+  background: #2980b9;
+  color: #fff;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-/* ========== RESOURCES SECTION ========== */
-.resources-section ul {
-  list-style: disc;
-  padding-left: 1.2rem;
-  background-color: #fff;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+#tasks button:hover {
+  background: #1c5980;
 }
 
-/* ========== NOTICE BOARD ========== */
-#notices-list {
-  display: flex;
-  flex-direction: column;
+#tasks li.done span {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* Calendar container */
+#calendar-container {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+body.dark-mode .main-content,
+body.dark-mode .sidebar,
+body.dark-mode .event-card,
+body.dark-mode .club-card,
+body.dark-mode .resource-card,
+body.dark-mode #calendar-container {
+  background: #23272a;
+  color: #e0e0e0;
+  border-color: #333;
+}
+
+body.dark-mode .event-card,
+body.dark-mode .club-card,
+body.dark-mode .resource-card {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+body.dark-mode .add-to-calendar-btn,
+body.dark-mode .join-club-btn,
+body.dark-mode .resource-card button {
+  background: #333 !important;
+  color: #fff !important;
+}
+
+body.dark-mode .modal-content {
+  background: #23272a;
+  color: #e0e0e0;
+}
+
+/* Resources section styles */
+.resource-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
+  margin-top: 1rem;
 }
 
-.notice-card {
-  background-color: #fff;
+.resource-card {
+  background: #fff;
+  border: 1px solid #ddd;
   padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border-radius: 6px;
+  text-align: center;
+  transition: box-shadow 0.2s;
 }
 
-.notice-card h4 {
-  font-size: 1rem;
-  margin-bottom: 0.3rem;
+.resource-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.notice-card p {
-  height: 10px;
-  background-color: #cad5e2;
+.resource-card button {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
   border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.resource-card button:hover {
+  background-color: #1c5980;
+}
+
+/* Club logos */
+.club-card img {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  object-fit: cover;
+  margin-right: 8px;
+}
+
+/* Add to Calendar button */
+.add-to-calendar-btn {
+  margin-top: 0.7rem;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-to-calendar-btn:hover {
+  background: #125299;
+}
+
+.join-club-btn {
+  margin-top: 0.7rem;
+  background: #43a047;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.join-club-btn[disabled] {
+  background: #bdbdbd;
+  cursor: not-allowed;
+}
+
+.join-club-btn:hover:not([disabled]) {
+  background: #2e7031;
+}
+
+/* News cards */
+.news-card {
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.news-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.news-card strong {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+  color: #1976d2;
+}
+
+.news-date {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.news-content {
+  color: #333;
+}
+
+body.dark-mode .news-card {
+  background: #23272a;
+  color: #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .dashboard-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .resource-cards {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    min-height: unset;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 0;
+    overflow-x: auto;
+  }
+  .sidebar nav ul {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+  }
+  .sidebar nav li {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 0;
+    font-size: 0.95rem;
+  }
+  .main-content {
+    padding: 10px;
+  }
+  .modal-content {
+    width: 95vw;
+    max-width: 350px;
+    margin: 30% auto;
+    padding: 16px;
+  }
+  .club-card img {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-header h1 {
+    font-size: 1.2rem;
+  }
+  .dashboard-header h2 {
+    font-size: 1rem;
+  }
+  .resource-cards {
+    grid-template-columns: 1fr;
+  }
+  .modal-content {
+    width: 98vw;
+    max-width: 98vw;
+    margin: 40% auto;
+    padding: 10px;
+  }
 }
