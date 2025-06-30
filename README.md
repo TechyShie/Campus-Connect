@@ -46,6 +46,22 @@ Campus Connect is a modern, responsive web dashboard for university and college 
 
 ---
 
+## 🚀 Live Demo 
+
+Link: [Click here to view live Demo video]()
+
+---
+
+## 📊 PowerPoint Presentation
+
+Link: [Click here to view presentation](https://docs.google.com/presentation/d/1H8DILKffarTBuD3scdzSQqkQmGCAQcOGidbDflPBrNs/edit?usp=sharing)
+
+## 🧠 Author
+
+**Susan Wannjiru**  
+
+----
+
 ## 📜 License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
