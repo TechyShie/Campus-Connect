@@ -48,7 +48,7 @@ Campus Connect is a modern, responsive web dashboard for university and college 
 
 ## 🚀 Live Demo 
 
-Link: [Click here to view live Demo video]()
+Link: [Click here to view live Demo video](https://drive.google.com/file/d/1BjqloU6jIjTN66GBpR_0Tifmm5XhbtWr/view?usp=sharing)
 
 ---
 

@@ -36,12 +36,13 @@ document.addEventListener("DOMContentLoaded", function () {
       allClubs = clubs.map(club => ({ ...club, joined: false }));
       renderClubsList();
       updateDashboard();
-    });
+4    });
 
   let calendar;
 
   function initializeCalendar() {
     const el = document.getElementById("calendar-container");
+    if (!el) return; // Prevent error if element not found
     if (el.dataset.init) return;
     el.dataset.init = true;
     calendar = new FullCalendar.Calendar(el, {
@@ -306,23 +307,4 @@ document.addEventListener("DOMContentLoaded", function () {
       // Update sidebar active state
       document.querySelectorAll('.sidebar nav li').forEach(li => li.classList.remove('active'));
       const sidebarLi = document.querySelector(`.sidebar nav li[data-section="${section}"]`);
-      if (sidebarLi) sidebarLi.classList.add('active');
-      // Update section title
-      const sectionTitle = document.getElementById('section-title');
-      if (sectionTitle) {
-        sectionTitle.textContent = sidebarLi
-          ? sidebarLi.innerText.trim()
-          : section.charAt(0).toUpperCase() + section.slice(1);
-      }
-      // If calendar, initialize it
-      if (section === "calendar" && typeof initializeCalendar === "function") {
-        initializeCalendar();
-      }
-    });
-  });
-
-  // Initialize calendar immediately on page load
-  if (typeof initializeCalendar === "function") {
-    initializeCalendar();
-  }
-});
+      4
