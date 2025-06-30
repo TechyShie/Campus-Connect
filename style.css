@@ -25,7 +25,7 @@ body {
   -webkit-backdrop-filter: blur(12px) saturate(150%);
   background-color: rgba(255, 255, 255, 0.2);
   border-right: 1px solid rgba(255, 255, 255, 0.3);
-  color: #fff;
+  color: #000; /* Changed from white to black */
   min-height: 100vh;
   padding: 20px;
 }
@@ -55,7 +55,7 @@ body {
 
 .sidebar nav li.active,
 .sidebar nav li:hover {
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.4); /* Lightened hover background */
 }
 
 /* Main Content */
@@ -199,14 +199,18 @@ body {
   margin-left: 6px;
   padding: 4px 8px;
   border: none;
-  background: #555;
-  color: #fff;
-  border-radius: 4px;
+  background: none;    /* Remove background */
+  color: inherit;      /* Inherit text color */
+  border-radius: 0;    /* Remove border radius */
   cursor: pointer;
+  font-size: 1.1em;    /* Optional: make emoji a bit larger */
+  box-shadow: none;    /* Remove any box shadow */
+  transition: none;    /* Remove transition */
 }
 
 #tasks button:hover {
-  background: #333;
+  background: none;
+  color: #d32f2f;      /* Optional: red on hover for delete, or use a different color */
 }
 
 #tasks li.done span {
@@ -277,25 +281,62 @@ body {
 
 /* Buttons */
 .add-to-calendar-btn,
-.join-club-btn {
-  margin-top: 0.7rem;
-  background: #555;
-  color: #fff;
+.join-club-btn,
+#add-task,
+.resource-card button,
+.dashboard-actions button,
+#theme-toggle,
+#notification-bell {
+  background: linear-gradient(
+    135deg,
+    #f8d1c9 0%,
+    #f4c4b5 20%,
+    #eec2cf 40%,
+    #d7c4e6 60%,
+    #c7b6e5 80%,
+    #b0c0e0 100%
+  );
+  color: #444;
   border: none;
-  padding: 0.4rem 1rem;
+  padding: 0.5rem 1.2rem;
   border-radius: 4px;
   cursor: pointer;
-  transition: background 0.2s;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(30,30,60,0.08);
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s;
 }
 
 .add-to-calendar-btn:hover,
-.join-club-btn:hover:not([disabled]) {
-  background: #333;
+.join-club-btn:hover:not([disabled]),
+#add-task:hover,
+.resource-card button:hover,
+.dashboard-actions button:hover,
+#theme-toggle:hover,
+#notification-bell:hover {
+  background: linear-gradient(
+    135deg,
+    #b0c0e0 0%,
+    #c7b6e5 20%,
+    #d7c4e6 40%,
+    #eec2cf 60%,
+    #f4c4b5 80%,
+    #f8d1c9 100%
+  );
+  color: #222;
+  box-shadow: 0 4px 16px rgba(30,30,60,0.15);
 }
 
+/* Joined club button style */
 .join-club-btn[disabled] {
-  background: #aaa;
+  background: linear-gradient(
+    135deg,
+    #b0c0e0 0%,
+    #c7b6e5 100%
+  ) !important;
+  color: #888 !important;
   cursor: not-allowed;
+  opacity: 0.7;
 }
 
 /* Responsive adjustments */

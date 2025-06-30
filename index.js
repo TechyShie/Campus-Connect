@@ -34,18 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch("data/clubs.json")
     .then(r => r.json())
     .then(clubs => {
-      const list = document.getElementById("clubs-list");
-      list.innerHTML = "";
-      clubs.forEach(club => {
-        const div = document.createElement("div");
-        div.className = "club-card";
-        div.innerHTML = `
-          <img src="${club.logo}" alt="${club.name} logo" />
-          <strong>${club.name}</strong>
-          <div class="club-description">${club.description}</div>
-        `;
-        list.appendChild(div);
-      });
+      allClubs = clubs.map(club => ({ ...club, joined: false }));
+      renderClubsList();
+      updateDashboard();
     });
 
   // Load Resources
@@ -135,6 +126,17 @@ document.addEventListener("DOMContentLoaded", function () {
       taskInput.value = "";
     }
   };
+  document.getElementById("add-task").onclick = function() {
+    let value = taskInput.value.trim();
+    if (value) {
+      // Capitalize the first letter
+      value = value.charAt(0).toUpperCase() + value.slice(1);
+      tasks.push({ text: value, done: false });
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      renderTasks();
+      taskInput.value = "";
+    }
+  };
   renderTasks();
 
   function updateDashboard() {
@@ -209,12 +211,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // --- Make Calendar section active on load ---
+  // Instantly show calendar section on page load
   document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
   document.getElementById('calendar').classList.add('active');
   document.querySelectorAll('.sidebar nav li').forEach(li => li.classList.remove('active'));
   document.querySelector('.sidebar nav li[data-section="calendar"]').classList.add('active');
   document.getElementById('section-title').textContent = "Calendar";
+  initializeCalendar();
 
   function renderEventsList() {
     const list = document.getElementById("events-list");
@@ -271,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
       btn.onclick = function() {
         if (!club.joined) {
           allClubs[i].joined = true;
-          showPopupMessage(`Successfully joined ${club.name}!`);
+          showPopupMessage(`You joined ${club.name}!`);
           renderClubsList();
           updateDashboard();
         }
