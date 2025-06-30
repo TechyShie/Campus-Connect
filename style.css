@@ -525,3 +525,13 @@ body.dark-theme #tasks li {
   }
 }
 
+/* Dashboard containers: dark mode glassmorphism style */
+body.dark-theme .dashboard-stats div,
+body.dark-theme #dashboard-next-events-list li {
+  background: rgba(35, 36, 58, 0.85);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border-radius: 8px;
+}
+
