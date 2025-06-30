@@ -1,4 +1,4 @@
-.<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -30,8 +30,10 @@
   <main class="main-content">
     <header class="main-header">
       <h1 id="section-title">Dashboard</h1>
+      <button id="theme-toggle" title="Toggle Theme"><i class="fas fa-moon"></i></button>
     </header>
 
+    <!-- Dashboard Section -->
     <section id="dashboard" class="content-section active">
       <div class="dashboard-header">
         <h2>Welcome Back!</h2>
@@ -65,30 +67,47 @@
       </div>
     </section>
 
+    <!-- Calendar Section -->
     <section id="calendar" class="content-section">
       <div id="calendar-container"></div>
     </section>
 
+    <!-- Events Section -->
     <section id="events" class="content-section">
       <h2>Upcoming Events</h2>
       <div id="events-list"></div>
     </section>
 
+    <!-- Clubs Section -->
     <section id="clubs" class="content-section">
       <h2>Join a Club</h2>
       <div id="clubs-list"></div>
     </section>
 
+    <!-- Resources Section -->
     <section id="resources" class="content-section">
       <h2>Resources</h2>
       <div class="resource-cards">
-        <div class="resource-card" data-category="Notes & Guides"><h3>Notes & Guides</h3><button>View</button></div>
-        <div class="resource-card" data-category="Tutorials & Videos"><h3>Tutorials & Videos</h3><button>View</button></div>
-        <div class="resource-card" data-category="Helpful Links"><h3>Helpful Links</h3><button>View</button></div>
-        <div class="resource-card" data-category="Skill Modules"><h3>Skill Modules</h3><button>View</button></div>
+        <div class="resource-card" data-category="Notes & Guides">
+          <h3>Notes & Guides</h3>
+          <button>View</button>
+        </div>
+        <div class="resource-card" data-category="Tutorials & Videos">
+          <h3>Tutorials & Videos</h3>
+          <button>View</button>
+        </div>
+        <div class="resource-card" data-category="Helpful Links">
+          <h3>Helpful Links</h3>
+          <button>View</button>
+        </div>
+        <div class="resource-card" data-category="Skill Modules">
+          <h3>Skill Modules</h3>
+          <button>View</button>
+        </div>
       </div>
     </section>
 
+    <!-- To-Do List Section -->
     <section id="todo" class="content-section">
       <h2>To-Do List</h2>
       <input id="new-task" placeholder="New task..." />
@@ -96,12 +115,24 @@
       <ul id="tasks"></ul>
     </section>
 
+    <!-- News Section -->
     <section id="news" class="content-section">
       <h2>Latest News</h2>
+      <label for="news-category">Filter by category:</label>
+      <select id="news-category">
+        <option value="">All</option>
+        <option value="business">Business</option>
+        <option value="technology">Technology</option>
+        <option value="sports">Sports</option>
+        <option value="health">Health</option>
+        <option value="science">Science</option>
+        <option value="entertainment">Entertainment</option>
+      </select>
       <div id="news-list"></div>
     </section>
   </main>
 
+  <!-- Resource Modal -->
   <div id="resource-modal" class="modal">
     <div class="modal-content">
       <span class="close-button">&times;</span>
@@ -110,6 +141,7 @@
     </div>
   </div>
 
+  <!-- Add Event Modal -->
   <div id="add-event-modal" class="modal">
     <div class="modal-content">
       <span class="close-button" id="close-event-modal">&times;</span>
@@ -125,6 +157,7 @@
     </div>
   </div>
 
+  <!-- View Event Modal -->
   <div id="view-event-modal" class="modal">
     <div class="modal-content">
       <span class="close-button" id="close-view-event-modal">&times;</span>

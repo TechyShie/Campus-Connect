@@ -24,8 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(events => {
       const today = new Date();
       events.sort((a, b) => new Date(a.date) - new Date(b.date));
-      const upcomingEvents = events.filter(ev => new Date(ev.date) >= today.setHours(0,0,0,0));
-      allEvents = upcomingEvents;
+      allEvents = events.filter(ev => new Date(ev.date) >= today.setHours(0,0,0,0));
       renderEventsList();
       updateDashboard();
     });
@@ -39,39 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
       updateDashboard();
     });
 
-  // Load Resources
-  fetch("resources.json")
-    .then(r => r.json())
-    .then(resourcesData => {
-      const modal = document.getElementById("resource-modal");
-      const modalTitle = document.getElementById("modal-title");
-      const resourceList = document.getElementById("resource-list");
-      document.querySelectorAll(".resource-card button").forEach(btn => {
-        btn.onclick = () => {
-          const cat = btn.parentElement.dataset.category;
-          modalTitle.textContent = cat;
-          resourceList.innerHTML = "";
-          resourcesData[cat].forEach(res => {
-            const li = document.createElement("li");
-            li.innerHTML = `<a href="${res.link}">${res.name}</a>`;
-            resourceList.appendChild(li);
-          });
-          modal.style.display = "block";
-        };
-      });
-      modal.querySelector(".close-button").onclick = () => modal.style.display = "none";
-      window.onclick = e => { if (e.target == modal) modal.style.display = "none"; };
-    });
-
   let calendar;
-
-  // View Event Modal logic
-  const viewModal = document.getElementById('view-event-modal');
-  const closeViewBtn = document.getElementById('close-view-event-modal');
-  closeViewBtn.onclick = () => { viewModal.style.display = 'none'; };
-  window.addEventListener('click', (event) => {
-    if (event.target == viewModal) viewModal.style.display = 'none';
-  });
 
   function initializeCalendar() {
     const el = document.getElementById("calendar-container");
@@ -85,15 +52,15 @@ document.addEventListener("DOMContentLoaded", function () {
         allDay: true,
         extendedProps: { details: e.details || "" }
       })),
-      dateClick: function(info) {
+      dateClick(info) {
         document.getElementById('add-event-modal').style.display = 'block';
         document.getElementById('event-date').value = info.dateStr;
       },
-      eventClick: function(info) {
+      eventClick(info) {
         document.getElementById('view-event-title').textContent = info.event.title;
         document.getElementById('view-event-date').textContent = new Date(info.event.start).toDateString();
         document.getElementById('view-event-details').textContent = info.event.extendedProps.details || "No details";
-        viewModal.style.display = 'block';
+        document.getElementById('view-event-modal').style.display = 'block';
       }
     });
     calendar.render();
@@ -119,24 +86,25 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("tasks", JSON.stringify(tasks));
     renderTasks();
   }
+  // Add task on button click
   addTaskBtn.onclick = () => {
-    if (taskInput.value.trim()) {
-      tasks.push({text:taskInput.value.trim(),done:false});
-      saveTasks();
-      taskInput.value = "";
-    }
-  };
-  document.getElementById("add-task").onclick = function() {
-    let value = taskInput.value.trim();
+    const value = taskInput.value.trim();
     if (value) {
-      // Capitalize the first letter
-      value = value.charAt(0).toUpperCase() + value.slice(1);
-      tasks.push({ text: value, done: false });
+      const capitalized = value.charAt(0).toUpperCase() + value.slice(1);
+      tasks.push({ text: capitalized, done: false });
       localStorage.setItem("tasks", JSON.stringify(tasks));
       renderTasks();
       taskInput.value = "";
     }
   };
+  // Add task on Enter key
+  taskInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent form submission if inside a form
+      addTaskBtn.click();
+    }
+  });
+
   renderTasks();
 
   function updateDashboard() {
@@ -152,9 +120,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Modals
   const modal = document.getElementById('add-event-modal');
-  const closeBtn = document.getElementById('close-event-modal');
-  closeBtn.onclick = () => { modal.style.display = 'none'; };
+  document.getElementById('close-event-modal').onclick = () => { modal.style.display = 'none'; };
   window.onclick = (event) => {
     if (event.target == modal) modal.style.display = 'none';
   };
@@ -169,10 +137,10 @@ document.addEventListener("DOMContentLoaded", function () {
       allEvents.push(newEvent);
       if (calendar) {
         calendar.addEvent({
-          title: title,
+          title,
           start: date,
           allDay: true,
-          extendedProps: { details: details }
+          extendedProps: { details }
         });
       }
       renderEventsList();
@@ -184,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   function showPopupMessage(msg) {
-    let popup = document.createElement("div");
+    const popup = document.createElement("div");
     popup.textContent = msg;
     popup.style.position = "fixed";
     popup.style.bottom = "30px";
@@ -198,26 +166,8 @@ document.addEventListener("DOMContentLoaded", function () {
     popup.style.zIndex = 2000;
     popup.style.fontSize = "1rem";
     document.body.appendChild(popup);
-    setTimeout(() => {
-      popup.remove();
-    }, 2000);
+    setTimeout(() => popup.remove(), 2000);
   }
-
-  document.querySelectorAll('.dashboard-actions button').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const section = btn.getAttribute('data-section');
-      const sidebarBtn = document.querySelector(`.sidebar nav li[data-section="${section}"]`);
-      if (sidebarBtn) sidebarBtn.click();
-    });
-  });
-
-  // Instantly show calendar section on page load
-  document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
-  document.getElementById('calendar').classList.add('active');
-  document.querySelectorAll('.sidebar nav li').forEach(li => li.classList.remove('active'));
-  document.querySelector('.sidebar nav li[data-section="calendar"]').classList.add('active');
-  document.getElementById('section-title').textContent = "Calendar";
-  initializeCalendar();
 
   function renderEventsList() {
     const list = document.getElementById("events-list");
@@ -227,31 +177,21 @@ document.addEventListener("DOMContentLoaded", function () {
       div.className = "event-card";
       div.innerHTML = `
         <strong>${ev.title}</strong>
-        <div class="event-description">${ev.description || ev.details || ""}</div>
+        <div class="event-description">${ev.details || ""}</div>
         <div class="event-date">${new Date(ev.date).toDateString()}</div>
         <button class="add-to-calendar-btn">Add to Calendar</button>
       `;
       const btn = div.querySelector(".add-to-calendar-btn");
-      let alreadyOnCalendar = false;
-      if (calendar) {
-        alreadyOnCalendar = calendar.getEvents().some(e =>
-          e.title === ev.title && e.startStr === ev.date
-        );
-      }
-      if (alreadyOnCalendar) {
-        btn.style.display = "none";
-      }
-      btn.onclick = function() {
-        if (calendar && !alreadyOnCalendar) {
+      btn.onclick = () => {
+        if (calendar) {
           calendar.addEvent({
             title: ev.title,
             start: ev.date,
             allDay: true,
-            extendedProps: { details: ev.description || ev.details || "" }
+            extendedProps: { details: ev.details }
           });
-          showPopupMessage(`"${ev.title}" successfully added to calendar!`);
           btn.style.display = "none";
-          alreadyOnCalendar = true;
+          showPopupMessage(`"${ev.title}" added to calendar!`);
         }
       };
       list.appendChild(div);
@@ -270,51 +210,82 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="club-description">${club.description}</div>
         <button class="join-club-btn"${club.joined ? ' disabled' : ''}>${club.joined ? "Joined" : "Join"}</button>
       `;
-      const btn = div.querySelector(".join-club-btn");
-      btn.onclick = function() {
-        if (!club.joined) {
-          allClubs[i].joined = true;
-          showPopupMessage(`You joined ${club.name}!`);
-          renderClubsList();
-          updateDashboard();
-        }
+      div.querySelector(".join-club-btn").onclick = () => {
+        allClubs[i].joined = true;
+        renderClubsList();
+        updateDashboard();
+        showPopupMessage(`You joined ${club.name}!`);
       };
       list.appendChild(div);
     });
   }
 
-  // Load News
-  fetch("news.json")
-    .then(r => r.json())
-    .then(newsItems => {
-      renderNewsList(newsItems);
-    });
+  // News via RSS
+  const newsList = document.getElementById("news-list");
+  const categorySelect = document.getElementById("news-category");
 
-  function renderNewsList(newsItems) {
-    const list = document.getElementById("news-list");
-    list.innerHTML = "";
-    newsItems.sort((a, b) => new Date(b.date) - new Date(a.date));
-    newsItems.forEach(news => {
-      const div = document.createElement("div");
-      div.className = "news-card";
-      div.innerHTML = `
-        <strong>${news.title}</strong>
-        <div class="news-date">${new Date(news.date).toDateString()}</div>
-        <div class="news-content">${news.content}</div>
-      `;
-      list.appendChild(div);
-    });
+  function fetchNewsRSS(rssUrl) {
+    newsList.innerHTML = "<p>Loading news...</p>";
+    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`)
+      .then(r => r.json())
+      .then(data => {
+        newsList.innerHTML = "";
+        if (data.items && data.items.length) {
+          data.items.forEach(article => {
+            const div = document.createElement("div");
+            div.className = "news-card";
+            div.innerHTML = `
+              <strong>${article.title}</strong>
+              <div class="news-date">${new Date(article.pubDate).toDateString()}</div>
+              <div class="news-content">${article.description || ""}</div>
+              <a href="${article.link}" target="_blank">Read more</a>
+            `;
+            newsList.appendChild(div);
+          });
+        } else {
+          newsList.innerHTML = "<p>No news articles found.</p>";
+        }
+      })
+      .catch(err => {
+        console.error("Error fetching news:", err);
+        newsList.innerHTML = "<p>Error loading news.</p>";
+      });
   }
+
+  // Initial load
+  fetchNewsRSS("https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml");
+
+  categorySelect.addEventListener("change", () => {
+    let rss;
+    switch (categorySelect.value) {
+      case "business":
+        rss = "http://feeds.reuters.com/reuters/businessNews"; break;
+      case "technology":
+        rss = "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"; break;
+      case "sports":
+        rss = "http://feeds.bbci.co.uk/sport/rss.xml"; break;
+      case "health":
+        rss = "https://www.sciencedaily.com/rss/health_medicine.xml"; break;
+      case "science":
+        rss = "https://www.sciencedaily.com/rss/top.xml"; break;
+      case "entertainment":
+        rss = "https://www.npr.org/rss/rss.php?id=1008"; break;
+      default:
+        rss = "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml";
+    }
+    fetchNewsRSS(rss);
+  });
 
   // Theme toggle
   const themeToggleBtn = document.getElementById("theme-toggle");
-  themeToggleBtn.addEventListener("click", () => {
+  themeToggleBtn?.addEventListener("click", () => {
     document.body.classList.toggle("dark-theme");
     const isDark = document.body.classList.contains("dark-theme");
     themeToggleBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
     localStorage.setItem("dark-theme", isDark);
   });
-  // Check theme on load
+
+  // Check saved theme
   const isDarkTheme = JSON.parse(localStorage.getItem("dark-theme"));
   if (isDarkTheme) {
     document.body.classList.add("dark-theme");
@@ -322,17 +293,4 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
   }
-
-  document.getElementById('theme-toggle').onclick = function() {
-    document.body.classList.toggle('dark-mode');
-    // Optionally swap icon
-    const icon = this.querySelector('i');
-    if(document.body.classList.contains('dark-mode')) {
-      icon.classList.remove('fa-moon');
-      icon.classList.add('fa-sun');
-    } else {
-      icon.classList.remove('fa-sun');
-      icon.classList.add('fa-moon');
-    }
-  };
 });

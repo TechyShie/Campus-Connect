@@ -46,5 +46,7 @@ Campus Connect is a modern, responsive web dashboard for university and college 
 
 ---
 
+## 📜 License
 
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
