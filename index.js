@@ -293,4 +293,36 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
   }
+
+  // Dashboard action buttons: make them navigate to the correct section
+  document.querySelectorAll('.dashboard-actions button').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const section = btn.getAttribute('data-section');
+      if (!section) return;
+      // Hide all sections
+      document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+      // Show the selected section
+      document.getElementById(section).classList.add('active');
+      // Update sidebar active state
+      document.querySelectorAll('.sidebar nav li').forEach(li => li.classList.remove('active'));
+      const sidebarLi = document.querySelector(`.sidebar nav li[data-section="${section}"]`);
+      if (sidebarLi) sidebarLi.classList.add('active');
+      // Update section title
+      const sectionTitle = document.getElementById('section-title');
+      if (sectionTitle) {
+        sectionTitle.textContent = sidebarLi
+          ? sidebarLi.innerText.trim()
+          : section.charAt(0).toUpperCase() + section.slice(1);
+      }
+      // If calendar, initialize it
+      if (section === "calendar" && typeof initializeCalendar === "function") {
+        initializeCalendar();
+      }
+    });
+  });
+
+  // Initialize calendar immediately on page load
+  if (typeof initializeCalendar === "function") {
+    initializeCalendar();
+  }
 });
