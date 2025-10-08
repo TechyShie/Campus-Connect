@@ -31,7 +31,7 @@ Campus Connect is a modern, responsive web dashboard for university and college 
 - Toggle between light and dark themes.
 - Gradient background inspired by pastel tones.
 - Frosted glass sidebar for a modern feel.
-
+-
 ✅ **Fully Responsive**
 - Works seamlessly across desktops, tablets, and mobile devices.
 
@@ -39,7 +39,7 @@ Campus Connect is a modern, responsive web dashboard for university and college 
 
 ## 🛠️ Technologies Used
 
-- **HTML5** – Markup structure
+- **HTML5** – Markup structur
 - **CSS3** – Styling and responsive layout
 - **JavaScript (ES6)** – Dynamic functionality
 - **Font Awesome** – Icons

@@ -1,4 +1,39 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Sidebar navigation
+  document.querySelectorAll('.sidebar nav li').forEach(li => {
+    li.addEventListener('click', function () {
+      // Remove active from all
+      document.querySelectorAll('.sidebar nav li').forEach(item => item.classList.remove('active'));
+      // Add active to clicked
+      this.classList.add('active');
+      // Hide all sections
+      document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+      // Show the selected section
+      const section = this.getAttribute('data-section');
+      const sectionEl = document.getElementById(section);
+      if (sectionEl) sectionEl.classList.add('active');
+      // Update section title if needed
+      const title = this.querySelector('span')?.textContent || '';
+      if (document.getElementById('section-title')) {
+        document.getElementById('section-title').textContent = title;
+      }
+      // Initialize calendar if calendar section is shown
+      if (section === 'calendar' && typeof initializeCalendar === "function") {
+        initializeCalendar();
+      }
+    });
+  });
+
+  // Dashboard action buttons
+  document.querySelectorAll('.dashboard-actions button').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const section = this.getAttribute('data-section');
+      // Simulate sidebar click for consistency
+      const sidebarLi = document.querySelector(`.sidebar nav li[data-section="${section}"]`);
+      if (sidebarLi) sidebarLi.click();
+    });
+  });
+
   const sections = document.querySelectorAll(".content-section");
   const sidebarItems = document.querySelectorAll(".sidebar nav ul li");
   const sectionTitle = document.getElementById("section-title");
@@ -294,17 +329,4 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
   }
-
-  // Dashboard action buttons: make them navigate to the correct section
-  document.querySelectorAll('.dashboard-actions button').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const section = btn.getAttribute('data-section');
-      if (!section) return;
-      // Hide all sections
-      document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
-      // Show the selected section
-      document.getElementById(section).classList.add('active');
-      // Update sidebar active state
-      document.querySelectorAll('.sidebar nav li').forEach(li => li.classList.remove('active'));
-      const sidebarLi = document.querySelector(`.sidebar nav li[data-section="${section}"]`);
-      4
+});
