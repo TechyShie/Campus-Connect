@@ -58,7 +58,7 @@ Link: [Click here to view presentation](https://docs.google.com/presentation/d/1
 
 ## 🧠 Author
 
-**Susan Wannjiru**  
+**Susan Wanjiru**  
 
 ----
 
